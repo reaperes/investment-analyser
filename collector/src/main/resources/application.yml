@@ -1,0 +1,19 @@
+#logging.level.root: DEBUG
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/invest
+    username: root
+    password: local
+    driver-class-name: org.mariadb.jdbc.Driver
+
+  flyway:
+    enabled: false
+    baseline-on-migrate: false
+    url: ${spring.datasource.url}
+    user: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+
+  jpa:
+    open-in-view: false
+    show-sql: true
