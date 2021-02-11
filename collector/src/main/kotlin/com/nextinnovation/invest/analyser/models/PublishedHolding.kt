@@ -9,16 +9,18 @@ import javax.persistence.*
 data class PublishedHolding(
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  var publishedHoldingId: Long?,
+  var publishedHoldingId: Long? = null,
 
-  @ManyToOne
+  @Column
+  @Enumerated(EnumType.STRING)
   var investCompany: InvestCompany,
 
   @ManyToOne
+  @JoinColumn(name = "companyId", nullable = false)
   var company: Company,
 
   @Column
-  var shares: Long,
+  var shares: Double,
 
   @Column
   var published: LocalDate

@@ -7,7 +7,7 @@ import javax.persistence.*
 data class Company(
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  var companyId: Long?,
+  var companyId: Long? = null,
 
   @Column
   var name: String,

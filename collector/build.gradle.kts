@@ -16,7 +16,7 @@ dependencies {
 
   kapt("org.mapstruct:mapstruct-processor:$mapstructVersion")
 
-  runtimeOnly("org.flywaydb:flyway-core:7.5.2")
+  runtimeOnly("org.flywaydb:flyway-core:7.5.3")
   runtimeOnly("org.mariadb.jdbc:mariadb-java-client:2.7.2")
 
   testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
