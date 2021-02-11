@@ -1,4 +1,4 @@
-import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
+import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 
 dependencies {
   val kotestVersion = "4.4.0"
@@ -11,9 +11,10 @@ dependencies {
   implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.12.1")
   implementation("com.jayway.jsonpath:json-path:2.5.0")
   implementation("org.mapstruct:mapstruct:$mapstructVersion")
-  implementation("org.mapstruct:mapstruct-jdk8:$mapstructVersion")
+  implementation("org.apache.commons:commons-csv:1.8")
+  implementation("io.github.microutils:kotlin-logging-jvm:2.0.4")
 
-  annotationProcessor("org.mapstruct:mapstruct-processor:$mapstructVersion")
+  kapt("org.mapstruct:mapstruct-processor:$mapstructVersion")
 
   runtimeOnly("org.flywaydb:flyway-core:7.5.2")
   runtimeOnly("org.mariadb.jdbc:mariadb-java-client:2.7.2")
@@ -24,4 +25,25 @@ dependencies {
 
 tasks.withType<Test> {
   useJUnitPlatform()
+}
+
+sourceSets {
+  create("intTest") {
+    withConvention(KotlinSourceSet::class) {
+      kotlin.srcDir("src/intTest/kotlin")
+      resources.srcDir("src/intTest/resources")
+      compileClasspath += sourceSets["main"].output + configurations["testRuntimeClasspath"]
+      runtimeClasspath += output + compileClasspath + sourceSets["test"].runtimeClasspath
+    }
+  }
+}
+
+task<Test>("intTest") {
+  group = "verification"
+  description = "Runs the integration tests"
+
+  testClassesDirs = sourceSets["intTest"].output.classesDirs
+  classpath = sourceSets["intTest"].runtimeClasspath
+
+  mustRunAfter(tasks["test"])
 }
