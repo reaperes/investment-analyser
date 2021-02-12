@@ -36,6 +36,21 @@ services:
     image: grafana/grafana:7.4.1
     restart: always
     ports:
-    - 80:3000
+    - 3000:3000
     volumes:
     - /home/namu/data/grafana:/var/lib/grafana
+
+  nginx:
+    image: staticfloat/nginx-certbot
+    restart: always
+    ports:
+    - 80:80
+    - 443:443
+    environment:
+      CERTBOT_EMAIL: reaperes105@gmail.com
+    volumes:
+    - /home/namu/data/nginx/conf.d:/etc/nginx/user.conf.d:ro
+    - letsencrypt:/etc/letsencrypt
+
+volumes:
+  letsencrypt:
