@@ -39,3 +39,4 @@ out/
 
 ### custom ignores ###
 tmp/
+infra/data
