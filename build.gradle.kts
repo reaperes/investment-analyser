@@ -30,4 +30,12 @@ subprojects {
       kotlinOptions.freeCompilerArgs = listOf("-Xjsr305=strict")
     }
   }
+
+  task<Copy>("installGitHooks") {
+    group = "build setup"
+    description = "Install git hooks"
+
+    from(file("$rootDir/hooks/pre-commit"))
+    into(file("$rootDir/.git/hooks"))
+  }
 }

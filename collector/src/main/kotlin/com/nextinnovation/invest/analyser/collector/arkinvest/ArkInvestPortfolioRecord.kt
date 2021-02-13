@@ -1,4 +1,4 @@
-package com.nextinnovation.invest.analyser.arkinvest
+package com.nextinnovation.invest.analyser.collector.arkinvest
 
 import java.time.LocalDate
 

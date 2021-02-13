@@ -1,6 +1,6 @@
-package com.nextinnovation.invest.analyser.arkinvest
+package com.nextinnovation.invest.analyser.collector.arkinvest
 
-import com.nextinnovation.invest.analyser.models.*
+import com.nextinnovation.invest.analyser.collector.models.*
 import mu.KotlinLogging
 import org.springframework.stereotype.Service
 

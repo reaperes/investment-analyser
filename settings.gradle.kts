@@ -7,5 +7,6 @@ pluginManagement {
 }
 
 include(
-  "collector"
+  "collector",
+  "collector-backup"
 )

@@ -1,6 +1,6 @@
-package com.nextinnovation.invest.analyser
+package com.nextinnovation.invest.analyser.collector
 
-import com.nextinnovation.invest.analyser.arkinvest.ArkInvestService
+import com.nextinnovation.invest.analyser.collector.arkinvest.ArkInvestService
 import org.springframework.web.bind.annotation.RestController
 
 @RestController

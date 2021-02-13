@@ -1,4 +1,4 @@
-package com.nextinnovation.invest.analyser
+package com.nextinnovation.invest.analyser.collector
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
