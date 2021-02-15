@@ -7,6 +7,7 @@ pluginManagement {
 }
 
 include(
+  "invest-core",
   "collector",
   "collector-backup"
 )

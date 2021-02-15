@@ -1,4 +1,4 @@
-package com.nextinnovation.invest.analyser.collector.models
+package com.nextinnovation.invest.analyser.core.models
 
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository

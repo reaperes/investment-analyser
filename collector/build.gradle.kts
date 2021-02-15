@@ -1,10 +1,7 @@
-import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
-
 dependencies {
-  val kotestVersion = "4.4.0"
   val mapstructVersion = "1.4.2.Final"
 
-  implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.4.20"))
+  implementation(project(":invest-core"))
 
   implementation("org.springframework.boot:spring-boot-starter-web")
   implementation("org.springframework.boot:spring-boot-starter-data-jpa")
@@ -18,32 +15,4 @@ dependencies {
 
   runtimeOnly("org.flywaydb:flyway-core:7.5.3")
   runtimeOnly("org.mariadb.jdbc:mariadb-java-client:2.7.2")
-
-  testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
-  testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
-}
-
-tasks.withType<Test> {
-  useJUnitPlatform()
-}
-
-sourceSets {
-  create("intTest") {
-    withConvention(KotlinSourceSet::class) {
-      kotlin.srcDir("src/intTest/kotlin")
-      resources.srcDir("src/intTest/resources")
-      compileClasspath += sourceSets["main"].output + configurations["testRuntimeClasspath"]
-      runtimeClasspath += output + compileClasspath + sourceSets["test"].runtimeClasspath
-    }
-  }
-}
-
-task<Test>("intTest") {
-  group = "verification"
-  description = "Runs the integration tests"
-
-  testClassesDirs = sourceSets["intTest"].output.classesDirs
-  classpath = sourceSets["intTest"].runtimeClasspath
-
-  mustRunAfter(tasks["test"])
 }

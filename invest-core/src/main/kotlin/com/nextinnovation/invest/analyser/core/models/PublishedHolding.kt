@@ -1,4 +1,4 @@
-package com.nextinnovation.invest.analyser.collector.models
+package com.nextinnovation.invest.analyser.core.models
 
 import java.time.LocalDate
 import javax.persistence.*
