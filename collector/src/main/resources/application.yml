@@ -1,27 +1,13 @@
 #logging.level.root: DEBUG
 
 spring:
-  datasource:
-    url: jdbc:mysql://localhost:3306/invest
-    username: root
-    password: local
-    driver-class-name: org.mariadb.jdbc.Driver
+  profiles:
+    include:
+    - core
 
   flyway:
     enabled: true
     baseline-on-migrate: false
-    url: ${spring.datasource.url}
-    user: ${spring.datasource.username}
-    password: ${spring.datasource.password}
-
-  jpa:
-    open-in-view: false
-    show-sql: true
-    hibernate:
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MariaDBDialect
-        show_sql: true
-        format_sql: true
+    url: jdbc:mysql://localhost:3306/invest
+    user: root
+    password: local
