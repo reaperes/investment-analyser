@@ -18,3 +18,15 @@ spring:
         dialect: org.hibernate.dialect.MariaDBDialect
         show_sql: true
         format_sql: true
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+  datasource:
+    url: jdbc:mysql://mysql:3306/invest
+    username: root
+    password: local
+    driver-class-name: org.mariadb.jdbc.Driver
