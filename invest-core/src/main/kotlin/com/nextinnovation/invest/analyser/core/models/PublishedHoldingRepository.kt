@@ -7,8 +7,8 @@ import java.util.*
 
 @Repository
 interface PublishedHoldingRepository : JpaRepository<PublishedHolding, Long> {
-  fun findByInvestCompanyAndCompanyAndPublished(
-    investCompany: InvestCompany,
+  fun findByInvestFundAndCompanyAndPublished(
+    investFund: InvestFund,
     company: Company,
     published: LocalDate,
   ): Optional<PublishedHolding>

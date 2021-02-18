@@ -10,6 +10,7 @@ private val log = KotlinLogging.logger {}
 class ArkInvestService(
   val arkInvestClient: ArkInvestClient,
   val companyRepository: CompanyRepository,
+  val investFundRepository: InvestFundRepository,
   val publishedHoldingRepository: PublishedHoldingRepository,
 ) {
   fun saveTodayPortfolio() {
@@ -51,14 +52,15 @@ class ArkInvestService(
 
   // TODO: performance tuning
   private fun updatePublishedHoldings(records: List<ArkInvestPortfolioRecord>): List<PublishedHolding> {
+    val investFund = investFundRepository.findByTicker(InvestFundType.ARKK.ticker)
     return records
       // filter not updated yet
       .filter { record ->
         val company = companyRepository.findByCusip(record.cusip).orElseThrow {
           throw IllegalStateException("Company does not exist. Company cusip: ${record.cusip}")
         }
-        !publishedHoldingRepository.findByInvestCompanyAndCompanyAndPublished(
-          InvestCompany.ARK, company, record.date
+        !publishedHoldingRepository.findByInvestFundAndCompanyAndPublished(
+          investFund, company, record.date
         ).isPresent
       }
       // Update new published holding
@@ -67,7 +69,7 @@ class ArkInvestService(
           throw IllegalStateException("Company does not exist. Company cusip: ${record.cusip}")
         }
         val publishedHolding = PublishedHolding(
-          investCompany = InvestCompany.ARK,
+          investFund = investFund,
           company = company,
           shares = record.shares,
           published = record.date

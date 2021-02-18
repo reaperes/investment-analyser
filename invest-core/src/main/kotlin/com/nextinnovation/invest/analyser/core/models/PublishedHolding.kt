@@ -11,9 +11,9 @@ data class PublishedHolding(
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   var publishedHoldingId: Long? = null,
 
-  @Column
-  @Enumerated(EnumType.STRING)
-  var investCompany: InvestCompany,
+  @ManyToOne
+  @JoinColumn(name = "investFundId", nullable = false)
+  var investFund: InvestFund,
 
   @ManyToOne
   @JoinColumn(name = "companyId", nullable = false)
