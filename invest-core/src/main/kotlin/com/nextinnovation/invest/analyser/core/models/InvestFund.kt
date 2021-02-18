@@ -18,4 +18,10 @@ data class InvestFund(
 
   @Column
   var ticker: String,
+
+  @Column
+  var cusip: String,
+
+  @Column
+  var csvUrl: String,
 )

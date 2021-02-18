@@ -12,22 +12,17 @@ class ArkInvestClient(
   private val restTemplate: RestTemplate = defaultArkInvestRestTemplate,
   private val arkInvestPortfolioRecordMapper: ArkInvestPortfolioRecordMapper,
 ) {
-  fun getPortfolioCSV(): String {
-    val portfolioUrl = "https://ark-funds.com/wp-content/fundsiteliterature/csv/ARK_NEXT_GENERATION_INTERNET_ETF_ARKW_HOLDINGS.csv"
-    return restTemplate.getForEntity(portfolioUrl, String::class.java).body!!
+  fun getPortfolioCSV(url: String): String {
+    return restTemplate.getForEntity(url, String::class.java).body!!
   }
 
-  fun getTodayPortfolioRecords(): List<ArkInvestPortfolioRecord> {
-    val csv = getPortfolioCSV()
+  fun getTodayPortfolioRecords(url: String): List<ArkInvestPortfolioRecord> {
+    val csv = getPortfolioCSV(url)
     val records = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(StringReader(csv)).records
 
     return records
       .filter { isNotEmptyRecord(it) }
       .map(arkInvestPortfolioRecordMapper::fromRawRecord)
-  }
-
-  private fun isNotHeaderRecord(record: CSVRecord): Boolean {
-    return record.recordNumber != 1L
   }
 
   private fun isNotEmptyRecord(record: CSVRecord): Boolean {

@@ -16,17 +16,24 @@ class ArkInvestService(
   fun saveTodayPortfolio() {
     log.info("--- Start to save ${InvestCompany.ARK.readableName} 's published holdings on today")
 
-    log.info("Fetching today ArkInvest portfolio...")
-    val records = arkInvestClient.getTodayPortfolioRecords()
-    log.info("Successfully completed. Total fetched records: ${records.size}")
+    val investFunds = investFundRepository.findAll()
+    investFunds.map { fund ->
+      log.info("Fetching today ArkInvest ${fund.name} portfolio...")
+      val records = arkInvestClient.getTodayPortfolioRecords(fund.csvUrl)
+      log.info("Successfully completed. Total fetched records: ${records.size}")
 
-    log.info("Start to update company list")
-    val updatedCompanies = updateCompanyListIfNotExists(records)
-    log.info("Successfully completed. Total updated companies: ${updatedCompanies.size}")
+      log.info("Start to update company list")
+      val updatedCompanies = updateCompanyListIfNotExists(records)
+      log.info("Successfully completed. Total updated companies: ${updatedCompanies.size}")
 
-    log.info("Start to update published holdings")
-    val updatedPublishedHoldings = updatePublishedHoldings(records)
-    log.info("Successfully completed. Total updated published holdings: ${updatedPublishedHoldings.size}")
+      log.info("Start to update published holdings")
+      val updatedPublishedHoldings = updatePublishedHoldings(fund.cusip, records)
+      log.info("Successfully completed. Total updated published holdings: ${updatedPublishedHoldings.size}")
+
+      val sleepMillis = 3000L
+      log.info("Sleep for $sleepMillis millis...\n\n\n")
+      Thread.sleep(sleepMillis)
+    }
 
     log.info("--- Successfully completed: Save ${InvestCompany.ARK.readableName} 's published holdings on today")
   }
@@ -51,8 +58,8 @@ class ArkInvestService(
   }
 
   // TODO: performance tuning
-  private fun updatePublishedHoldings(records: List<ArkInvestPortfolioRecord>): List<PublishedHolding> {
-    val investFund = investFundRepository.findByTicker(InvestFundType.ARKK.ticker)
+  private fun updatePublishedHoldings(cusip: String, records: List<ArkInvestPortfolioRecord>): List<PublishedHolding> {
+    val investFund = investFundRepository.findByCusip(cusip)
     return records
       // filter not updated yet
       .filter { record ->

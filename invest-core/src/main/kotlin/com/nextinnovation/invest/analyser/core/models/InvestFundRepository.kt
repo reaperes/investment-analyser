@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface InvestFundRepository : JpaRepository<InvestFund, Long> {
-  fun findByTicker(ticker: String): InvestFund
+  fun findByCusip(cusip: String): InvestFund
 }
