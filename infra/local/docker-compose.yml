@@ -31,3 +31,14 @@ services:
     - 3000:3000
     volumes:
     - ./data/grafana:/var/lib/grafana
+
+  jenkins:
+    image: jenkins/jenkins:2.263.4-lts-alpine
+    restart: always
+    environment:
+      JAVA_OPTS: -Xms256m -Xmx256m
+    ports:
+    - 9090:8080
+    - 50000:50000
+    volumes:
+    - ./data/jenkins:/var/jenkins_home

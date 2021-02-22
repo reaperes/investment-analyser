@@ -9,7 +9,7 @@ spring:
 
   jpa:
     open-in-view: false
-    show-sql: true
+    show-sql: false
     hibernate:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
@@ -30,3 +30,11 @@ spring:
     username: root
     password: local
     driver-class-name: org.mariadb.jdbc.Driver
+
+  jpa:
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MariaDBDialect
+        show_sql: false
+        format_sql: false
