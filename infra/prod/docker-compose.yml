@@ -2,7 +2,7 @@ version: '3'
 
 services:
   app:
-    image: reaperes/investment-analyser:0.1
+    image: reaperes/investment-analyser:0.3
     restart: always
     environment:
       SPRING_PROFILES_ACTIVE: prod
@@ -61,7 +61,7 @@ services:
     - 9090:8080
     - 50000:50000
     volumes:
-    - ./data/jenkins:/var/jenkins_home
+    - /home/namu/data/jenkins:/var/jenkins_home
 
 volumes:
   letsencrypt:
