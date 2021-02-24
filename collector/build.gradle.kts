@@ -9,7 +9,6 @@ dependencies {
   implementation("com.jayway.jsonpath:json-path:2.5.0")
   implementation("org.mapstruct:mapstruct:$mapstructVersion")
   implementation("org.apache.commons:commons-csv:1.8")
-  implementation("io.github.microutils:kotlin-logging-jvm:2.0.4")
 
   kapt("org.mapstruct:mapstruct-processor:$mapstructVersion")
 

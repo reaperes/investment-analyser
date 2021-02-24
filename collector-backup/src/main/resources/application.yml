@@ -1,0 +1,12 @@
+#logging.level.root: DEBUG
+
+spring:
+  profiles:
+    include:
+    - core
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
